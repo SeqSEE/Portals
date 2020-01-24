@@ -1,7 +1,7 @@
 package me.petterim1.portals;
 
-import cn.nukkit.Player;
 import cn.nukkit.Server;
+import cn.nukkit.player.Player;
 import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.utils.Config;
 import cn.nukkit.utils.ConfigSection;
@@ -12,12 +12,15 @@ public class Main extends PluginBase {
 
     public static Config config;
 
+    static Main instance;
+
     @Override
     public void onEnable() {
+        instance = this;
         saveDefaultConfig();
         config = getConfig();
         if (config.getInt("configVersion") != configVersion) {
-            getLogger().warning("Outdated config file, trying to update it automatically");
+            getLogger().warn("Outdated config file, trying to update it automatically");
             config.set("configVersion", configVersion);
             config.set("resetPosition", false);
             config.save();
@@ -55,7 +58,7 @@ class Task extends Thread {
                                 }
                             }
                         } else {
-                            Server.getInstance().getLogger().error("Unknown portal rotation: " + c.getString("rotation"));
+                            Main.instance.getLogger().error("Unknown portal rotation: " + c.getString("rotation"));
                         }
                     }
                 });
