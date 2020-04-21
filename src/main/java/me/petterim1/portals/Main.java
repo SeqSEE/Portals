@@ -41,7 +41,7 @@ public class Main extends PluginBase implements Listener {
             config.save();
             config = getConfig();
         }
-        getServer().getScheduler().scheduleDelayedRepeatingTask(this, new Task(), 5, 5);
+        getServer().getScheduler().scheduleDelayedRepeatingTask(this, new Task(), 10, 10);
     }
     
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -95,22 +95,17 @@ class Task extends Thread {
                         			if (Math.round(p.getX() * 2) / 2.0 == portal.getX() && Math.round(p.getZ()) <= portal.getZ() + portal.getWidth() && Math.round(p.getZ()) >= portal.getZ()) {
                                         if (p.getY() >= portal.getY() && p.getY() <= portal.getY() + portal.getHeight()) {
                                         	Main.instance.setTransferring(p);
-                                        	Main.instance.getServer().getScheduler().scheduleTask(Main.instance, new cn.nukkit.scheduler.Task() {
-
-        										@Override
-        										public void onRun(int currentTick) {
-        											ScriptCustomEventPacket pk = new ScriptCustomEventPacket();
-        		    								pk.eventName = "portals:transfer";
-        		    								ByteArrayOutputStream out = new ByteArrayOutputStream();
-        		    								DataOutputStream a = new DataOutputStream(out);
-        		    								try {
-        		    									a.writeUTF(portal.getCommand());
-        		    								} catch (IOException e) {
-        		    									e.printStackTrace();
-        		    								}
-        		    								pk.eventData = out.toByteArray();
-        		    								p.dataPacket(pk);
-        										}});
+                                        	ScriptCustomEventPacket pk = new ScriptCustomEventPacket();
+		    								pk.eventName = "portals:transfer";
+		    								ByteArrayOutputStream out = new ByteArrayOutputStream();
+		    								DataOutputStream a = new DataOutputStream(out);
+		    								try {
+		    									a.writeUTF(portal.getCommand());
+		    								} catch (IOException e) {
+		    									e.printStackTrace();
+		    								}
+		    								pk.eventData = out.toByteArray();
+		    								p.dataPacket(pk);
                                         }
                                         
                         			}
@@ -129,25 +124,20 @@ class Task extends Thread {
                                         }
                                     }
                         		} else if(portal.getType() == PortalType.WATERDOG) {
-                        			if (Math.round(p.getX() * 2) / 2.0 == portal.getX() && Math.round(p.getZ()) <= portal.getZ() + portal.getWidth() && Math.round(p.getZ()) >= portal.getZ()) {
+                        			if (Math.round(p.getZ() * 2) / 2.0 == portal.getZ() && Math.round(p.getX()) <= portal.getX() + portal.getWidth() && Math.round(p.getX()) >= portal.getX()) {
                                         if (p.getY() >= portal.getY() && p.getY() <= portal.getY() + portal.getHeight()) {
-                                        	Main.instance.setTransferring(p);
-                                        	Main.instance.getServer().getScheduler().scheduleTask(Main.instance, new cn.nukkit.scheduler.Task() {
-
-        										@Override
-        										public void onRun(int currentTick) {
-        											ScriptCustomEventPacket pk = new ScriptCustomEventPacket();
-        		    								pk.eventName = "portals:transfer";
-        		    								ByteArrayOutputStream out = new ByteArrayOutputStream();
-        		    								DataOutputStream a = new DataOutputStream(out);
-        		    								try {
-        		    									a.writeUTF(portal.getCommand());
-        		    								} catch (IOException e) {
-        		    									e.printStackTrace();
-        		    								}
-        		    								pk.eventData = out.toByteArray();
-        		    								p.dataPacket(pk);
-        										}});
+                                      	Main.instance.setTransferring(p);
+                                        	ScriptCustomEventPacket pk = new ScriptCustomEventPacket();
+		    								pk.eventName = "portals:transfer";
+		    								ByteArrayOutputStream out = new ByteArrayOutputStream();
+		    								DataOutputStream a = new DataOutputStream(out);
+		    								try {
+		    									a.writeUTF(portal.getCommand());
+		    								} catch (IOException e) {
+		    									e.printStackTrace();
+		    								}
+		    								pk.eventData = out.toByteArray();
+		    								p.dataPacket(pk);
                                         }
                         			}
                         			
