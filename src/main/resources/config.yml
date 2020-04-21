@@ -1,11 +1,12 @@
 # config version, do not edit
 configVersion: 2
-# teleport player to spawn when he uses portal, prevent infinity portal loop with server transfers
-resetPosition: false
+
 # list of all portals
 portals:
   # portal's name doesn't matter
   example1:
+    # portal's type
+    type: "nukkit"
     # portal's level name
     world: "world"
     # portal's corner x
@@ -22,3 +23,5 @@ portals:
     rotation: "x"
     # portal's command
     command: "warp somewhere"
+    # teleport player to spawn when he uses portal, prevent infinity portal loop with server transfers
+    resetPosition: false

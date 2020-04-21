@@ -1,5 +1,5 @@
 name: Portals
 version: "${pom.version}"
-api: ["2.0.0"]
+api: ["1.0.8"]
 author: PetteriM1
 main: me.petterim1.portals.Main
